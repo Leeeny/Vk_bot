@@ -55,14 +55,14 @@ while True:
 
                 if response == "!ботопроверка":
                     send_message(vk_session, id_type, id, message='Внимание! Работает бот')
-                if response == "!восстание машин":
+                elif response == "!восстание машин":
                     send_message(vk_session, id_type, id, message='НАДО. УНИЧТОЖИТЬ. ЧЕЛОВЕКОВ')
-                if response == "!оскорбиться":
+                elif response == "!оскорбиться":
                         send_message(vk_session, id_type, id, message='бот (оскорбился)')
-                if response == "!тык":
+                elif response == "!тык":
                     send_message(vk_session, id_type, id, message='Открываю клавиатуру', keyboard=keyboard)
 
-            if event.type == VkEventType.MESSAGE_EDIT:
+            elif event.type == VkEventType.MESSAGE_EDIT:
 
                 print("Пользователь отредактировал сообщение")
                 response = event.text.lower()
