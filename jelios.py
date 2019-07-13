@@ -1,4 +1,4 @@
-from vk_api.longpoll import VkLongPoll, VkEventType
+from vk_api.longpoll import VkLongPoll, VkEventType, VkMessageFlag
 from vk_api.keyboard import VkKeyboard, VkKeyboardColor
 import vk_api
 import apiai
@@ -15,6 +15,7 @@ session_api = vk_session.get_api()
 longpoll = VkLongPoll(vk_session)
 
 print("develop branch")
+
 def create_keyboard(response):
     keyboard = VkKeyboard(one_time=True)
 
@@ -58,7 +59,7 @@ def dialoge():
     try:
          for dialoge_event in longpoll.listen():
               if dialoge_event.type == VkEventType.MESSAGE_NEW:
-                    if dialoge_event.from_user:
+                  if dialoge_event.from_user & dialoge_event.to_me:
                         message = dialoge_event.text.lower()
                         print(message)
                         new_message = send_message_dialoge(message)
@@ -70,11 +71,8 @@ def dialoge():
                         if action == 'smalltalk.greetings.bye':
                             return 0
 
-
-    except BaseException:
-        print('Упс! Что-то пошло не так')
-
-
+    except Exception as ex:
+        print(ex)
 
 while True:
     try:
@@ -114,5 +112,6 @@ while True:
 
                 send_message(vk_session, id_type, id, message='Было отредактировано сообщение')
 
-    except BaseException:
-        print('Упс! Что-то пошло не так')
+
+    except Exception as ex:
+        print(ex)
